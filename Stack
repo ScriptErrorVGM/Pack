@@ -1,0 +1,58 @@
+#include <iostream>
+
+class Stack {
+private:
+	int *mass = new int;
+	int max_size;
+	int size;
+	void resize();
+public:
+	Stack(); 
+	int pop();
+	void push(int elem);
+};
+
+void Stack::resize() {
+	int *new_mass = new int[max_size*2];
+	max_size *= 2;
+	for(int i = 0; i < size; i++)
+		new_mass[i] = mass[i];
+	delete[] mass;
+	mass = new_mass;
+}
+
+Stack::Stack() {
+	mass = new int[10];
+	max_size = 10;
+	size = 0;
+}
+
+void Stack::push(int elem) {
+	if (size == max_size)
+		this->resize();
+	mass[size] = elem;
+	size++;
+}
+
+int Stack::pop() {
+	if (size == 0)
+		return 0;
+	size--;
+	int el = mass[size];
+	return el; 
+}
+
+int main() {
+	Stack XXX;
+	/*for (int i = 0; i < 11; i++)
+		XXX.push(i);
+	for (int i = 0; i < 11; i++)
+		std::cout << XXX.pop() << std::endl;
+	*/
+	XXX.push(1);
+	XXX.push(2);
+	std::cout << XXX.pop() << std::endl;
+	std::cout << XXX.pop() << std::endl;
+	
+	return 0;
+}
