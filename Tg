@@ -1,0 +1,53 @@
+// EGt.cpp: определяет точку входа для консольного приложения.
+//
+
+#include "stdafx.h"
+#include <fstream>
+using namespace std;
+int _tmain(int argc, _TCHAR* argv[])
+{
+	
+	
+    ifstream file("INPUT_TEXT.txt");
+    ofstream file_compr("COMPRESSED_TEXT.txt");
+    
+    char sym; //символ, который мы будем считывать
+    int kol=1;// количество повторяющихся символов
+ 
+    while(file.good())
+    {
+        file.get(sym);//считываем символ
+        if(sym != file.peek() || kol == 9)// если символ не совпадает со следующим символом в файле
+        {
+            file_compr << kol << sym;
+            // записываем результаты в выходной файл
+            kol=0;
+        }
+        kol++;
+    }
+ 
+    file.close();
+    file_compr.close();
+ 
+    ifstream f1("COMPRESSED_TEXT.txt");
+    ofstream file_decompr("DECOMPRESSED_TEXT.txt");
+ 
+    char sym1,sym2;// предыдущий и последующий символы
+    const char zero = '0';
+	while (f1.peek() != EOF)
+	{
+		
+		f1.get(sym1);
+		f1.get(sym2);
+		for (int i = 0; i < sym1 - zero; i++)
+			file_decompr << sym2;
+		//if (EOF){ break; }
+    }
+ 
+    f1.close();
+    file_decompr.close();
+ 
+    system("PAUSE");
+    return 0;
+	
+}
